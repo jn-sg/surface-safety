@@ -37,38 +37,28 @@ if transfer > 40:
 if removal < 70:
     st.write("- 제거율이 낮음 → 청소 방법 개선 필요")
 
-#각각 그래프
+#그래프
+import numpy as np
 import matplotlib.pyplot as plt
 
-st.subheader("위생 지표 비교 그래프")
+st.subheader("위생 지표 레이더 분석")
 
 labels = ['잔존율', '전이율', '제거율']
 values = [residual, transfer, removal]
 
-colors = ['red', 'orange', 'green']
+# 각도 계산
+angles = np.linspace(0, 2*np.pi, len(labels), endpoint=False).tolist()
 
-fig, ax = plt.subplots()
-ax.bar(labels, values)
+# 닫힌 그래프 만들기
+values += values[:1]
+angles += angles[:1]
 
-# 색 적용
-for bar, color in zip(ax.patches, colors):
-    bar.set_color(color)
+fig, ax = plt.subplots(subplot_kw=dict(polar=True))
 
-ax.set_ylabel('값 (%)')
-ax.set_title('표면 위생 지표 비교')
+ax.plot(angles, values, linewidth=2)
+ax.fill(angles, values, alpha=0.25)
+
+ax.set_thetagrids(np.degrees(angles[:-1]), labels)
+ax.set_title("표면 위생 상태")
 
 st.pyplot(fig)
-
-#위험도 그래프 
-st.subheader("위험도 분석")
-
-risk = 100 - score
-
-fig2, ax2 = plt.subplots()
-
-ax2.bar(['위험도'], [risk], color='purple')
-ax2.set_ylim(0, 100)
-ax2.set_ylabel('위험도')
-ax2.set_title('최종 위험도')
-
-st.pyplot(fig2)
