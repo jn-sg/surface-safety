@@ -36,3 +36,39 @@ if transfer > 40:
 
 if removal < 70:
     st.write("- 제거율이 낮음 → 청소 방법 개선 필요")
+
+#각각 그래프
+import matplotlib.pyplot as plt
+
+st.subheader("위생 지표 비교 그래프")
+
+labels = ['잔존율', '전이율', '제거율']
+values = [residual, transfer, removal]
+
+colors = ['red', 'orange', 'green']
+
+fig, ax = plt.subplots()
+ax.bar(labels, values)
+
+# 색 적용
+for bar, color in zip(ax.patches, colors):
+    bar.set_color(color)
+
+ax.set_ylabel('값 (%)')
+ax.set_title('표면 위생 지표 비교')
+
+st.pyplot(fig)
+
+#위험도 그래프 
+st.subheader("위험도 분석")
+
+risk = 100 - score
+
+fig2, ax2 = plt.subplots()
+
+ax2.bar(['위험도'], [risk], color='purple')
+ax2.set_ylim(0, 100)
+ax2.set_ylabel('위험도')
+ax2.set_title('최종 위험도')
+
+st.pyplot(fig2)
