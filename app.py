@@ -38,27 +38,26 @@ if removal < 70:
     st.write("- 제거율이 낮음 → 청소 방법 개선 필요")
 
 #그래프
-import numpy as np
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 
 st.subheader("위생 지표 레이더 분석")
 
-labels = ['잔존율', '전이율', '제거율']
-values = [residual, transfer, removal]
+categories = ['Residual', 'Transfer', 'Removal']
 
-# 각도 계산
-angles = np.linspace(0, 2*np.pi, len(labels), endpoint=False).tolist()
+fig = go.Figure()
 
-# 닫힌 그래프 만들기
-values += values[:1]
-angles += angles[:1]
+fig.add_trace(go.Scatterpolar(
+    r=[residual, transfer, removal],
+    theta=categories,
+    fill='toself',
+    name='Hygiene'
+))
 
-fig, ax = plt.subplots(subplot_kw=dict(polar=True))
+fig.update_layout(
+    polar=dict(
+        radialaxis=dict(visible=True, range=[0, 100])
+    ),
+    showlegend=False
+)
 
-ax.plot(angles, values, linewidth=2)
-ax.fill(angles, values, alpha=0.25)
-
-ax.set_thetagrids(np.degrees(angles[:-1]), labels)
-ax.set_title("표면 위생 상태")
-
-st.pyplot(fig)
+st.plotly_chart(fig)
