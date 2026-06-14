@@ -6,7 +6,10 @@ residual = st.slider("잔존율 (%)", 0, 100, 20)
 transfer = st.slider("전이율 (%)", 0, 100, 30)
 removal = st.slider("제거율 (%)", 0, 100, 80)
 
-score = 0.2 * removal + 0.4 * (100 - residual) + 0.4 * (100 - transfer)
+aw = st.slider("물 흡착성 지표 (%)", 0, 100, 50)
+
+score = 0.5 * (100 - residual) + 0.2 * removal + 0.1 * (100 - transfer) + 0.2 * (100 - aw)
+risk = 100 - score
 
 st.subheader(f"안전 점수: {score:.2f}")
 # 기존 코드 아래에 추가
