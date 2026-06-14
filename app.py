@@ -45,12 +45,12 @@ import plotly.graph_objects as go
 
 st.subheader("위생 지표 레이더 분석")
 
-categories = ['Residual', 'Transfer', 'Removal']
+categories = ['Residual', 'Transfer', 'Removal', 'Adsorption']
 
 fig = go.Figure()
 
 fig.add_trace(go.Scatterpolar(
-    r=[residual, transfer, removal],
+    r=[residual, transfer, removal, aw],
     theta=categories,
     fill='toself',
     name='Hygiene'
