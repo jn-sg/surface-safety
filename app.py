@@ -50,7 +50,7 @@ with col3:
 st.divider()
 
 # 그래프 영역
-left_col, right_col = st.columns([1.2, 1])
+left_col, right_col = st.columns([1.5, 0.9])
 
 with left_col:
     st.subheader("Multi-Indicator Hygiene Profile")
